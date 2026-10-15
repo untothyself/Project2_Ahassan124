@@ -1,7 +1,10 @@
+# pyright: reportWildcardImportFromLibrary=false
+
 import math
 import random
 
 from panda3d.core import *
+from panda3d.core import Vec3
 
 
 # x circle

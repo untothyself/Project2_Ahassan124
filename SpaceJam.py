@@ -13,10 +13,7 @@ class SpaceJam(ShowBase):
         ShowBase.__init__(self)
         self.disableMouse()
 
-        # camera position and exit key
-        camera = cast(NodePath, self.camera)
-        camera.setPos(0, -60, 10)
-        camera.lookAt(0, 70, 0)
+        # exit key
         self.accept("escape", self.userExit)
 
         # asset loader and scene graph
@@ -25,6 +22,8 @@ class SpaceJam(ShowBase):
 
         self.SetupScene()
         self.SetupDefenses()
+        self.Player.SetKeyBindings(self)
+        self.SetCamera()
 
     def SetupScene(self):
         loader = self.sceneLoader
@@ -77,7 +76,7 @@ class SpaceJam(ShowBase):
             "Player", "./Assets/Spaceships/spacejet_C.png",
             Vec3(0, 35, -4), 3
         )
-        self.Player.modelNode.setHpr(180, 0, 0)
+        self.Player.modelNode.setHpr(0, 0, 0)
 
     def AddDrone(self, centerObject, offset: Vec3, red=1.0, green=1.0, blue=1.0):
         # drone position around the object
@@ -126,6 +125,15 @@ class SpaceJam(ShowBase):
         # baseball seams around the station
         for step in range(28):
             self.DrawBaseballSeams(self.SpaceStation, step, 28, 14)
+
+
+    def SetCamera(self):
+        # camera follows the player
+        self.disableMouse()
+        camera = cast(NodePath, self.camera)
+        camera.reparentTo(self.Player.modelNode)
+        camera.setPos(0, -15, 5)
+        camera.lookAt(0, 15, 0)
 
 
 app = SpaceJam()
