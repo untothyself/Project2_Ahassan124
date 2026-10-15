@@ -1,4 +1,4 @@
-# External Sources - SpaceJam Project 2
+# External Sources - SpaceJam Project 3
 
 ## Planet textures
 
